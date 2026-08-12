@@ -1,4 +1,3 @@
-
 import streamlit as st
 from PIL import Image
 import numpy as np
@@ -42,11 +41,12 @@ class_names = load_class_names(class_names_path)
 if model:
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
-   if uploaded_file is not None:
-    image = Image.open(uploaded_file) 
-    st.image(image, caption='Uploaded Image', use_container_width=True)
-   else:
-    st.warning("Pehle image upload karo")
+    if uploaded_file is not None:
+        # Display the uploaded image
+        image = Image.open(uploaded_file)
+        st.image(image, caption='Uploaded Image', use_container_width=True) # FIX 1
+        st.write("")
+        st.write("Detecting...")
 
         # Perform inference
         try:
@@ -59,9 +59,9 @@ if model:
 
             # Process and display results
             for r in results:
-                im_array = r.plot()  # plot a BGR numpy array of predictions
-                im = Image.fromarray(im_array[..., ::-1])  # RGB PIL image
-                st.image(im, caption='Detection Results', use_column_width=True)
+                im_array = r.plot() # plot a BGR numpy array of predictions
+                im = Image.fromarray(im_array[..., ::-1]) # RGB PIL image
+                st.image(im, caption='Detection Results', use_container_width=True) # FIX 2
 
                 # Optionally display detected objects with confidence
                 if len(r.boxes) > 0:
