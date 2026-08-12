@@ -42,12 +42,11 @@ class_names = load_class_names(class_names_path)
 if model:
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
-    if uploaded_file is not None:
-        # Display the uploaded image
-        image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
-        st.write("")
-        st.write("Detecting...")
+   if uploaded_file is not None:
+    image = Image.open(uploaded_file) 
+    st.image(image, caption='Uploaded Image', use_container_width=True)
+   else:
+    st.warning("Pehle image upload karo")
 
         # Perform inference
         try:
